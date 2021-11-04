@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>JDL-generating</title>
+    </head>
+    <body>
+        <form method="POST" enctype="multipart/form-data">
+            <table>
+                <tr><td>GroupId</td><td><input type="text" name="group_id" value="com.safenetpay"></td></tr>
+                <tr><td>ArtifactId</td><td><input type="text" name="artifact_id" value="app"></td></tr>
+                <tr><td>DB name</td><td><input type="text" name="db_name" value="some_db"></td></tr>
+                <tr><td>DB user</td><td><input type="text" name="db_user" value="some_user"></td></tr>
+                <tr><td>DB password</td><td><input type="password" name="db_password" value="6688"></td></tr>
+                <tr><td>Schema</td><td><input type="text" name="schema" value="task"></td></tr>
+            </table>
+            <textarea name="jdl" cols="30" rows="10"></textarea>
+            <input type="submit"/>
+        </form>
+    </body>
+</html>
