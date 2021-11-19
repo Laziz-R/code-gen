@@ -3,8 +3,8 @@ package uz.netex.code_gen.model.jdl.type;
 import java.util.Arrays;
 import java.util.List;
 
-public interface TypeList {
-    List<Type> TYPES = Arrays.asList(
+public class TypeList {
+    static List<Type> TYPES = Arrays.asList(
         new Type("Byte", "SMALLINT", "integer", null),
         new Type("Short", "SMALLINT", "integer", null),
         new Type("Integer", "INTEGER", "integer", null),

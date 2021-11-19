@@ -26,6 +26,11 @@ public class Entity {
         return this.name;
     }
 
+    public String getPascalName() {
+        return this.name.getPascalCase();
+    }
+
+
     public Entity setName(String pascalName){
         this.name = new Name(pascalName, CaseUtil.PASCAL_CASE);
         return this;

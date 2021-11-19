@@ -4,17 +4,12 @@ package uz.netex.code_gen.common;
 import uz.netex.code_gen.common.maker.EntityMaker;
 import uz.netex.code_gen.common.maker.EnumMaker;
 import uz.netex.code_gen.common.maker.RelationsMaker;
-import uz.netex.code_gen.model.jdl.Entity;
-import uz.netex.code_gen.model.jdl.Field;
+import uz.netex.code_gen.model.jdl.*;
 import uz.netex.code_gen.model.jdl.Enum;
-import uz.netex.code_gen.model.jdl.Relationship;
-import uz.netex.code_gen.model.jdl.type.Type;
-import uz.netex.code_gen.model.sql.ForeignKey;
 import uz.netex.code_gen.util.CodeUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class JdlCode {
     private final String code;
@@ -60,49 +55,22 @@ public class JdlCode {
         Entity fromEntity = rel.getFromEntity();
         Entity toEntity = rel.getToEntity();
 
-        Field fromField, toField;
+        Field fromField = !fromEntity.getFields().isEmpty()
+                ? fromEntity.getFields().get(0)
+                : null;
 
-        if (fromEntity.getFields().isEmpty()) {
-            fromField = new Field()
-                    .setName(toEntity.getName().getCamelCase() + "Id");
-        } else {
-            fromField = fromEntity.getFields().get(0);
+        Field toField = !toEntity.getFields().isEmpty()
+                ? fromEntity.getFields().get(0)
+                : null;
+
+        if (rel.getType().equals(RelationType.MANY_TO_MANY)) {
+            Entity thirdEntity = new Entity()
+                    .setName(fromEntity.getPascalName() + toEntity.getPascalName());
+            thirdEntity.getFields().add(fromField);
+            thirdEntity.getFields().add(toField);
+            entities.add(thirdEntity);
         }
 
-        if (toEntity.getFields().isEmpty()) {
-            toField = new Field()
-                    .setName(toEntity.getName().getCamelCase() + "Id");
-        } else {
-            fromField = fromEntity.getFields().get(0);
-        }
-
-        for (Entity e : entities) {
-            if (e.getName().equals(fromEntity.getName())) {
-                for (Field f : e.getFields()) {
-                    if ()
-                }
-            }
-        }
-
-        switch (rel.getType()) {
-            case ONE_TO_ONE:
-            case MANY_TO_ONE:
-                fromEntity.getFields().add(fromFK.getFromField());
-                foreignKeys.add(fromFK);
-                break;
-            case ONE_TO_MANY:
-                toEntity.getFields().add(toFK.getFromField());
-                foreignKeys.add(toFK);
-                break;
-            case MANY_TO_MANY:
-                Entity e = new Entity();
-                e.getFields().add(fromFK.getFromField());
-                e.getFields().add(toFK.getFromField());
-                entities.add(e);
-
-                foreignKeys.add(fromFK);
-                foreignKeys.add(toFK);
-        }
     }
 
     public List<Entity> getEntities() {
@@ -125,12 +93,15 @@ public class JdlCode {
         return this.others;
     }
 
-    public List<ForeignKey> getForeignKeys() {
-        return foreignKeys;
-    }
-
     public void setOthers(List<String> others) {
         this.others = others;
+    }
+
+    private Entity getByName(Name eName) {
+        for (Entity e : entities)
+            if (e.getName().equals(eName))
+                return e;
+        return new Entity();
     }
 
 }

@@ -2,27 +2,27 @@ package uz.netex.code_gen.model.jdl.type;
 
 public class Type {
     private String jvName;
-    private String  pgName;
+    private String pgName;
     private String swName;
     private String library;
     private boolean unknown = false;
 
-    public Type(String jvName, String pgName, String swName, String library){
+    public Type(String jvName, String pgName, String swName, String library) {
         this.jvName = jvName;
         this.pgName = pgName;
         this.swName = swName;
         this.library = library;
     }
 
-    public Type(String jvName){
+    public Type(String jvName) {
         this.jvName = jvName;
-        for(Type type: TypeList.TYPES)
-            if(jvName.equals(type.jvName)){
+        for (Type type : TypeList.TYPES)
+            if (jvName.equals(type.jvName)) {
                 this.pgName = type.pgName;
                 this.swName = type.swName;
                 this.library = type.library;
             }
-        if(pgName == null){
+        if (pgName == null) {
             this.unknown = true;
             this.pgName = "TEXT";
             this.swName = "string";
@@ -41,16 +41,18 @@ public class Type {
         return this.pgName;
     }
 
-    public void setPgName(String pgName) {
+    public Type setPgName(String pgName) {
         this.pgName = pgName;
+        return this;
     }
 
     public String getSwName() {
         return this.swName;
     }
 
-    public void setSwName(String swName) {
+    public Type setSwName(String swName) {
         this.swName = swName;
+        return this;
     }
 
     public String getLibrary() {
@@ -60,8 +62,13 @@ public class Type {
     public void setLibrary(String library) {
         this.library = library;
     }
-    
+
     public boolean isUnknown() {
         return unknown;
+    }
+
+    public Type setUnknown(boolean unknown) {
+        this.unknown = unknown;
+        return this;
     }
 }

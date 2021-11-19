@@ -1,10 +1,12 @@
 package uz.netex.code_gen.common.maker;
 
 import uz.netex.code_gen.model.jdl.*;
+import uz.netex.code_gen.model.jdl.type.Type;
 import uz.netex.code_gen.util.CodeUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class RelationsMaker {
 
@@ -49,10 +51,36 @@ public class RelationsMaker {
 
             String[] items = CodeUtil.remove2Probels(line).split(" to ");
             if (items.length > 1) {
-                relation
-                        .setFromEntity(defOneSide(items[0]))
-                        .setToEntity(defOneSide(items[0]))
-                        .setType(type);
+                Entity fromEntity = defOneSide(items[0]);
+                Entity toEntity = defOneSide(items[1]);
+
+                if (!fromEntity.getFields().isEmpty()) {
+                    Field fromField = fromEntity.getFields().get(0);
+                    switch (type) {
+                        case ONE_TO_ONE:
+                        case MANY_TO_ONE:
+                        case MANY_TO_MANY:
+                            fromField.setType(new Type(toEntity.getPascalName()).setPgName("Long"));
+                            break;
+                        case ONE_TO_MANY:
+                            fromField.setType(new Type(toEntity.getName().getPascalCase() + "List"));
+                            break;
+                    }
+                }
+
+                if (!toEntity.getFields().isEmpty()) {
+                    Field toField = toEntity.getFields().get(0);
+                    switch (type) {
+                        case ONE_TO_ONE:
+                        case ONE_TO_MANY:
+                        case MANY_TO_MANY:
+                            toField.setType(new Type(fromEntity.getName().getPascalCase()));
+                            break;
+                        case MANY_TO_ONE:
+                            toField.setType(new Type(fromEntity.getName().getPascalCase() + "List"));
+                            break;
+                    }
+                }
                 relations.add(relation);
             }
         }
