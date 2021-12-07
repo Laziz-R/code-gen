@@ -6,7 +6,6 @@ import uz.netex.code_gen.util.CodeUtil;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class RelationsMaker {
 
@@ -60,7 +59,7 @@ public class RelationsMaker {
                         case ONE_TO_ONE:
                         case MANY_TO_ONE:
                         case MANY_TO_MANY:
-                            fromField.setType(new Type(toEntity.getPascalName()).setPgName("Long"));
+                            fromField.setType(new Type(toEntity.getPascalName()).setpName("Long"));
                             break;
                         case ONE_TO_MANY:
                             fromField.setType(new Type(toEntity.getName().getPascalCase() + "List"));

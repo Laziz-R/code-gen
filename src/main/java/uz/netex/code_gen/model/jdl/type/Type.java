@@ -1,66 +1,66 @@
 package uz.netex.code_gen.model.jdl.type;
 
 public class Type {
-    private String jvName;
-    private String pgName;
-    private String swName;
-    private String library;
+    private String jName;
+    private String pName;
+    private String sName;
+    private String jLibrary;
     private boolean unknown = false;
 
-    public Type(String jvName, String pgName, String swName, String library) {
-        this.jvName = jvName;
-        this.pgName = pgName;
-        this.swName = swName;
-        this.library = library;
+    public Type(String jName, String pName, String sName, String jLibrary) {
+        this.jName = jName;
+        this.pName = pName;
+        this.sName = sName;
+        this.jLibrary = jLibrary;
     }
 
-    public Type(String jvName) {
-        this.jvName = jvName;
+    public Type(String jName) {
+        this.jName = jName;
         for (Type type : TypeList.TYPES)
-            if (jvName.equals(type.jvName)) {
-                this.pgName = type.pgName;
-                this.swName = type.swName;
-                this.library = type.library;
+            if (jName.equals(type.jName)) {
+                this.pName = type.pName;
+                this.sName = type.sName;
+                this.jLibrary = type.jLibrary;
             }
-        if (pgName == null) {
+        if (pName == null) {
             this.unknown = true;
-            this.pgName = "TEXT";
-            this.swName = "string";
+            this.pName = "TEXT";
+            this.sName = "string";
         }
     }
 
-    public String getJvName() {
-        return this.jvName;
+    public String getjName() {
+        return this.jName;
     }
 
-    public void setJvName(String jvName) {
-        this.jvName = jvName;
+    public void setjName(String jName) {
+        this.jName = jName;
     }
 
-    public String getPgName() {
-        return this.pgName;
+    public String getpName() {
+        return this.pName;
     }
 
-    public Type setPgName(String pgName) {
-        this.pgName = pgName;
+    public Type setpName(String pName) {
+        this.pName = pName;
         return this;
     }
 
-    public String getSwName() {
-        return this.swName;
+    public String getsName() {
+        return this.sName;
     }
 
-    public Type setSwName(String swName) {
-        this.swName = swName;
+    public Type setsName(String sName) {
+        this.sName = sName;
         return this;
     }
 
-    public String getLibrary() {
-        return this.library;
+    public String getjLibrary() {
+        return this.jLibrary;
     }
 
-    public void setLibrary(String library) {
-        this.library = library;
+    public void setjLibrary(String jLibrary) {
+        this.jLibrary = jLibrary;
     }
 
     public boolean isUnknown() {

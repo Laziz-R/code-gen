@@ -15,7 +15,7 @@ public class Entity {
     public Set<String> getLibraries() {
         Set<String> libraries = new HashSet<>();
         for (Field field : fields) {
-            String lib = field.getType().getLibrary();
+            String lib = field.getType().getjLibrary();
             if (lib != null)
                 libraries.add(lib);
         }
