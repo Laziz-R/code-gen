@@ -31,7 +31,7 @@ public class Entity {
     }
 
 
-    public Entity setName(String pascalName){
+    public Entity setName(String pascalName) {
         this.name = new Name(pascalName, CaseUtil.PASCAL_CASE);
         return this;
     }
@@ -57,5 +57,21 @@ public class Entity {
     public Entity setTableName(String tableName) {
         this.tableName = tableName;
         return this;
+    }
+
+    public static Entity make(String head, String body) {
+        Entity entity = new Entity();
+
+        // head
+        String name = head.split(" ", 2)[1].trim();
+        entity.setName(name);
+
+        // body
+
+        for (String item : body.lines().toList()) {
+            if (item.trim().equals("")) continue;
+            entity.getFields().add(Field.make(item));
+        }
+        return entity;
     }
 }

@@ -3,34 +3,29 @@ package uz.netex.code_gen.util;
 public class CodeUtil {
 
     public static String removeComments(String text) {
-        StringBuilder newStr = new StringBuilder();
-        for (String line : text.split("\n")) {
-            if (line.trim().equals("")) continue;
-            if (line.trim().startsWith("//")) continue;
+        StringBuilder noComment = new StringBuilder();
+        for (String line : text.lines().toList()) {
             int i = line.indexOf("//");
             if (i > -1) {
                 line = line.substring(0, i);
             }
-            newStr.append(line).append("\n");
+            if (line.trim().equals(""))
+                continue;
+            noComment.append(line).append("\n");
         }
 
-        StringBuilder textBuilder = new StringBuilder();
-        for (int i = 0; i < newStr.length(); i++) {
-            if (i + 2 < newStr.length() &&
-                    newStr.substring(i, i + 2).equals("/*") &&
-                    newStr.charAt(i + 2) != '*') {
-                i += 2;
-                while (i + 1 < newStr.length() &&
-                        !newStr.substring(i, i + 2).equals("*/")) {
-                    i++;
-                }
-                i += 2;
+        int begin = noComment.indexOf("/*");
+        while (begin > -1) {
+            int end = noComment.indexOf("*/", begin + 2);
+            if (end > 0) {
+                noComment.delete(begin, end + 2);
+            } else {
+                noComment.delete(begin, noComment.length());
+                break;
             }
-            if (i < newStr.length())
-                textBuilder.append(newStr.charAt(i));
+            begin = noComment.indexOf("/*");
         }
-        text = textBuilder.toString();
-        return text;
+        return noComment.toString();
     }
 
     public static String remove2Probels(String content) {
@@ -41,23 +36,19 @@ public class CodeUtil {
         return content;
     }
 
-    public static int findCloseBkt(String str, int openIndex) {
+    public static int findCloseBrc(String str, int openIndex) {
         try {
             char openBkt = str.charAt(openIndex);
             char closeBkt;
             switch (openBkt) {
-                case '{':
-                    closeBkt = '}';
-                    break;
-                case '(':
-                    closeBkt = ')';
-                    break;
-                case '[':
-                    closeBkt = ']';
-                    break;
-                default:
+                case '{' -> closeBkt = '}';
+                case '(' -> closeBkt = ')';
+                case '[' -> closeBkt = ']';
+                default -> {
                     return -1;
+                }
             }
+
             int v = 1;
             int cursor = openIndex + 1;
             while (cursor < str.length()) {

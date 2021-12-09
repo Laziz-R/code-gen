@@ -11,24 +11,24 @@ public class Name {
 
     public Name(String name, String caseType) {
         switch (caseType) {
-            case CaseUtil.CAMEL_CASE:
+            case CaseUtil.CAMEL_CASE -> {
                 this.camelCase = name;
                 this.snakeCase = CaseUtil.camelToSnake(name);
                 this.pascalCase = CaseUtil.camelToPascal(name);
                 this.kebabCase = CaseUtil.camelToKebab(name);
-                break;
-            case CaseUtil.PASCAL_CASE:
+            }
+            case CaseUtil.PASCAL_CASE -> {
                 this.pascalCase = name;
                 this.snakeCase = CaseUtil.pascalToSnake(name);
                 this.camelCase = CaseUtil.pascalToCamel(name);
                 this.kebabCase = CaseUtil.pascalToKebab(name);
-                break;
-            case CaseUtil.SNAKE_CASE:
+            }
+            case CaseUtil.SNAKE_CASE -> {
                 this.snakeCase = name;
                 this.pascalCase = CaseUtil.snakeToPascal(name);
                 this.camelCase = CaseUtil.snakeToCamel(name);
                 this.kebabCase = CaseUtil.snakeToKebab(name);
-                break;
+            }
         }
         assert snakeCase != null;
         this.upperCase = snakeCase.toUpperCase();

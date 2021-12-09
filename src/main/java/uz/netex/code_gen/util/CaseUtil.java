@@ -9,7 +9,8 @@ public class CaseUtil {
             UPPER_CASE = "UPPER_CASE";
 
     public static String camelToSnake(String camel) {
-        if (camel == null) return null;
+        if (camel == null)
+            return null;
         StringBuilder snake = new StringBuilder();
         for (int i = 0; i < camel.length(); i++) {
             char c = camel.charAt(i);
@@ -23,7 +24,8 @@ public class CaseUtil {
     }
 
     public static String camelToPascal(String camel) {
-        if (camel == null || camel.equals("")) return camel;
+        if (camel == null || camel.equals(""))
+            return camel;
         char c = camel.charAt(0);
         if ('a' <= c && c <= 'z')
             c -= 32;
@@ -46,7 +48,8 @@ public class CaseUtil {
     }
 
     public static String kebabToPascal(String kebab) {
-        if (kebab == null) return null;
+        if (kebab == null)
+            return null;
         kebab = "-" + kebab.toLowerCase();
         StringBuilder pascal = new StringBuilder();
         for (int i = 0; i < kebab.length(); i++) {
@@ -61,7 +64,8 @@ public class CaseUtil {
     }
 
     public static String pascalToSnake(String pascal) {
-        if (pascal == null) return null;
+        if (pascal == null)
+            return null;
         StringBuilder snake = new StringBuilder();
         for (int i = 0; i < pascal.length(); i++) {
             char c = pascal.charAt(i);
@@ -76,7 +80,8 @@ public class CaseUtil {
     }
 
     public static String pascalToCamel(String pascal) {
-        if (pascal == null || pascal.equals("")) return pascal;
+        if (pascal == null || pascal.equals(""))
+            return pascal;
         char c = pascal.charAt(0);
         if ('A' <= c && c <= 'Z')
             c += 32;
@@ -84,7 +89,8 @@ public class CaseUtil {
     }
 
     public static String pascalToKebab(String pascal) {
-        if (pascal == null) return pascal;
+        if (pascal == null)
+            return null;
         StringBuilder kebab = new StringBuilder();
         for (int i = 0; i < pascal.length(); i++) {
             char c = pascal.charAt(i);
@@ -99,7 +105,8 @@ public class CaseUtil {
     }
 
     public static String snakeToCamel(String snake) {
-        if (snake == null || snake.equals("")) return snake;
+        if (snake == null || snake.equals(""))
+            return snake;
         snake = snake.toLowerCase();
         StringBuilder camel = new StringBuilder(snake.charAt(0) + "");
         for (int i = 1; i < snake.length(); i++) {
@@ -115,7 +122,8 @@ public class CaseUtil {
     }
 
     public static String snakeToPascal(String snake) {
-        if (snake == null) return null;
+        if (snake == null)
+            return null;
         snake = "_" + snake.toLowerCase();
         StringBuilder pascal = new StringBuilder();
         for (int i = 1; i < snake.length(); i++) {

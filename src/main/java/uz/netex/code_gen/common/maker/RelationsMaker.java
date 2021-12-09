@@ -25,20 +25,10 @@ public class RelationsMaker {
     private void headSolver(String head) {
         String name = head.split(" ", 2)[1].trim();
         switch (name.toLowerCase()) {
-            case "onetoone":
-                type = RelationType.ONE_TO_ONE;
-                break;
-            case "onetomany":
-                type = RelationType.ONE_TO_MANY;
-                break;
-            case "manytoone":
-                type = RelationType.MANY_TO_ONE;
-                break;
-            case "manytomany":
-                type = RelationType.MANY_TO_MANY;
-                break;
-            default:
-                break;
+            case "onetoone" -> type = RelationType.ONE_TO_ONE;
+            case "onetomany" -> type = RelationType.ONE_TO_MANY;
+            case "manytoone" -> type = RelationType.MANY_TO_ONE;
+            case "manytomany" -> type = RelationType.MANY_TO_MANY;
         }
     }
 
@@ -56,28 +46,16 @@ public class RelationsMaker {
                 if (!fromEntity.getFields().isEmpty()) {
                     Field fromField = fromEntity.getFields().get(0);
                     switch (type) {
-                        case ONE_TO_ONE:
-                        case MANY_TO_ONE:
-                        case MANY_TO_MANY:
-                            fromField.setType(new Type(toEntity.getPascalName()).setpName("Long"));
-                            break;
-                        case ONE_TO_MANY:
-                            fromField.setType(new Type(toEntity.getName().getPascalCase() + "List"));
-                            break;
+                        case ONE_TO_ONE, MANY_TO_ONE, MANY_TO_MANY -> fromField.setType(new Type(toEntity.getPascalName()).setpName("Long"));
+                        case ONE_TO_MANY -> fromField.setType(new Type(toEntity.getName().getPascalCase() + "List"));
                     }
                 }
 
                 if (!toEntity.getFields().isEmpty()) {
                     Field toField = toEntity.getFields().get(0);
                     switch (type) {
-                        case ONE_TO_ONE:
-                        case ONE_TO_MANY:
-                        case MANY_TO_MANY:
-                            toField.setType(new Type(fromEntity.getName().getPascalCase()));
-                            break;
-                        case MANY_TO_ONE:
-                            toField.setType(new Type(fromEntity.getName().getPascalCase() + "List"));
-                            break;
+                        case ONE_TO_ONE, ONE_TO_MANY, MANY_TO_MANY -> toField.setType(new Type(fromEntity.getName().getPascalCase()));
+                        case MANY_TO_ONE -> toField.setType(new Type(fromEntity.getName().getPascalCase() + "List"));
                     }
                 }
                 relations.add(relation);

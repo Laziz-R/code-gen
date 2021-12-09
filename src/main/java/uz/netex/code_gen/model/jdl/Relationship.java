@@ -30,6 +30,5 @@ public class Relationship {
     public Relationship setType(RelationType type) {
         this.type = type;
         return this;
-
     }
 }

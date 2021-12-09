@@ -3,19 +3,13 @@ package uz.netex.code_gen.router;
 import io.vertx.core.MultiMap;
 import io.vertx.core.Vertx;
 import io.vertx.core.json.JsonObject;
-import io.vertx.ext.web.FileUpload;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.ext.web.handler.StaticHandler;
 import uz.netex.code_gen.common.JdlCode;
 
-public class CodeGenRouter {
-    private final Vertx vertx;
-
-    public CodeGenRouter(Vertx vertx) {
-        this.vertx = vertx;
-    }
+public record CodeGenRouter(Vertx vertx) {
 
     public Router createRouter() {
         Router router = Router.router(vertx);

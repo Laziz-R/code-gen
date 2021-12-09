@@ -31,4 +31,18 @@ public class Enum {
         this.fields = fields;
         return this;
     }
+
+    public static Enum make(String head, String body) {
+        Enum enum1 = new Enum();
+
+        // head
+        String name = head.split(" ", 2)[1].trim();
+        enum1.setName(name);
+
+        // body
+        for (String line : body.lines().toList()) {
+            enum1.getFields().add(line.trim());
+        }
+        return enum1;
+    }
 }

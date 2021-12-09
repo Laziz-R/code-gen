@@ -5,7 +5,6 @@ public class Type {
     private String pName;
     private String sName;
     private String jLibrary;
-    private boolean unknown = false;
 
     public Type(String jName, String pName, String sName, String jLibrary) {
         this.jName = jName;
@@ -21,16 +20,22 @@ public class Type {
                 this.pName = type.pName;
                 this.sName = type.sName;
                 this.jLibrary = type.jLibrary;
+                break;
             }
-        if (pName == null) {
-            this.unknown = true;
+        if (this.pName == null) {
             this.pName = "TEXT";
             this.sName = "string";
         }
     }
 
+    public Type asFK() {
+        this.pName = "bigint";
+        this.sName = "integer";
+        return this;
+    }
+
     public String getjName() {
-        return this.jName;
+        return jName;
     }
 
     public void setjName(String jName) {
@@ -59,16 +64,8 @@ public class Type {
         return this.jLibrary;
     }
 
-    public void setjLibrary(String jLibrary) {
+    public Type setjLibrary(String jLibrary) {
         this.jLibrary = jLibrary;
-    }
-
-    public boolean isUnknown() {
-        return unknown;
-    }
-
-    public Type setUnknown(boolean unknown) {
-        this.unknown = unknown;
         return this;
     }
 }

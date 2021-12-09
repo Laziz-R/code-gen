@@ -8,7 +8,7 @@ public class TypeList {
         new Type("Byte", "SMALLINT", "integer", null),
         new Type("Short", "SMALLINT", "integer", null),
         new Type("Integer", "INTEGER", "integer", null),
-        new Type("Long", "BIGINT", "integer", null),
+        new Type("Long", "BIGINT", "number", null),
         new Type("Double", "NUMERIC", "number", null),
         new Type("Float", "NUMERIC", "number", null),
         new Type("Character", "CHAR", "string", null),
